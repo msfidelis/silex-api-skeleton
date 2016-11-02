@@ -1,4 +1,4 @@
-# SilexPHP-API-Skeleton
+# Silex PHP MVC - Fast API :rocket: :space_invader: :octocat:
 Exemplos de API criada utilizando o microframework Silex com o ORM Doctrine. 
 Criei essa paradinha pra não precisar ficar horas configurando o ambiente do Silex sempre que precisar construir uma API simples com PHP. Já ta tudo aí :D 
 
@@ -6,7 +6,7 @@ Criei essa paradinha pra não precisar ficar horas configurando o ambiente do Si
 
 ## Exemplo do htaccess
 
-```
+``` apacheconf
 <IfModule mod_rewrite.c>
     Options -MultiViews
 
@@ -21,7 +21,7 @@ Criei essa paradinha pra não precisar ficar horas configurando o ambiente do Si
 
 ## Exemplo do VHOST 
 
-```
+``` apacheconf
 <VirtualHost *:80>
         DocumentRoot "/Users/fidelis/Sites/Api-Web/web/"
         Servername local.apiweb.com
@@ -37,14 +37,14 @@ Criei essa paradinha pra não precisar ficar horas configurando o ambiente do Si
 
 * Você vai precisar do [composer!](https://getcomposer.org/)
 
-```
-# curl -s -o /usr/local/bin/composer https://getcomposer.org/composer.phar 
-# chmod 0755 /usr/local/bin/composer
+``` bash
+ # curl -s -o /usr/local/bin/composer https://getcomposer.org/composer.phar 
+ # chmod 0755 /usr/local/bin/composer
 ```
 
 E na pasta do projeto, onde se encontra nosso arquivinho composer.json:
 
-```
+``` bash
  # composer install 
 ```
 
