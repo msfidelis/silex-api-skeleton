@@ -1,0 +1,13 @@
+{
+  "host-api": "123123123",
+  "db" : {
+    "driver":"pdo_mysql",
+    "host":"mysql",
+    "schema": "example",
+    "user": "hostapi",
+    "password" : "hostapi"
+  },
+  "env" : {
+    "debug-mode" : "true"
+  }
+}

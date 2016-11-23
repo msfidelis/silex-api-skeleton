@@ -1,0 +1,24 @@
+version: '2'
+services:
+  #Host de PHP da API
+  api:
+    build: .
+    restart: never
+    volumes:
+      - ./web:/var/www/html
+    ports:
+      - "80:80"
+    links:
+      - mysql
+
+  #Container de exemplo de MySQL
+  mysql:
+    image: mysql:5.7
+    restart: never
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=hostapi
+      - MYSQL_DATABASE=example
+    volumes:
+      - ./data/db:/var/lib/mysql
