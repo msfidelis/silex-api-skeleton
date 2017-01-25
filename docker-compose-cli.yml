@@ -2,8 +2,8 @@ version: '2'
 services:
   #Host de PHP da API
   api:
-    build: .
-    restart: never
+    build: Docker-Stacks/PHP7-Cli
+    restart: always
     volumes:
       - ./web:/var/www/html
     ports:
@@ -14,11 +14,11 @@ services:
   #Container de exemplo de MySQL
   mysql:
     image: mysql:5.7
-    restart: never
+    restart: always
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=hostapi
+      - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=example
     volumes:
       - ./data/db:/var/lib/mysql

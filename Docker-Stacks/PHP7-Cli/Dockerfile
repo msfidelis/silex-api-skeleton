@@ -7,7 +7,7 @@ RUN apt-get update ; \
   php7.0-common php7.0-dba php7.0-gd php7.0-odbc php7.0-xml php-xdebug \
   build-essential libmemcached-dev php-memcache phpunit -y;
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN rm -rf /var/lib/apt/lists/*; apt-get autoremove; apt-get autoclean; apt-get clean;
 
 VOLUME /var/www/html/
 
