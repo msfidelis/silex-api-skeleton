@@ -27,10 +27,14 @@ class ApiController implements ControllerProviderInterface {
      * Exemplo de rota que retorna uma View do Twig
      */
     $api->get('/', function(Application $app) {
-      return $app->json(['oi' => 'fodase']);
+      return $app->json(['status' => http_response_code()]);
     });
 
-    
+    $api->get('/hostname', function(Application $app) {
+      return $app->json(['hostname' => gethostname()]);
+    });
+
+
     /**
      * Exemplo de rota via GET
      */
@@ -46,7 +50,7 @@ class ApiController implements ControllerProviderInterface {
     	$content = (new Company())->findEmployeeByID((int) $id);
     	return $app->json($content);
     });
-    
+
     /**
      * Exemplo de rota via POST que adiciona um item
      */
@@ -57,7 +61,7 @@ class ApiController implements ControllerProviderInterface {
 	        "age" => $data->age ? (int) $data->age : null,
 	        "address" => $data->address ? "'{$data->address}'" : null,
 	        "salary" => $data->salary ? (float) $data->salary : null
-      ); 
+      );
 
     	if ((new Company())->insert($post)) {
     		$return = array('status' => 200);
@@ -67,7 +71,7 @@ class ApiController implements ControllerProviderInterface {
 
     	return $app->json($return);
     });
-    
+
     /**
      * Exemplo de rota via PUT que atualiza um item
      */
@@ -81,7 +85,7 @@ class ApiController implements ControllerProviderInterface {
 
     	return $app->json($return);
     });
-    
+
     /**
      * Exemplo de rota via DELETE que exclui um item
      */

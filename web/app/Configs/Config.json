@@ -4,8 +4,8 @@
     "driver":"pdo_mysql",
     "host":"mysql",
     "schema": "example",
-    "user": "hostapi",
-    "password" : "hostapi"
+    "user": "root",
+    "password" : "root"
   },
   "env" : {
     "debug-mode" : "true"

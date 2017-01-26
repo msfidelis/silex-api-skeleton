@@ -1,0 +1,20 @@
+app:
+  build: Docker-Stacks/Apache
+  volumes:
+    - web:/var/www/html/web
+    - Docker-Stacks/Apache/vhost.conf:/etc/apache2/sites-enabled/host.conf
+  ports:
+    - "80:80"
+  links:
+    - mysql
+
+mysql:
+  image: mysql:5.7
+  restart: always
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=example
+  volumes:
+    - ./data/db:/var/lib/mysql
