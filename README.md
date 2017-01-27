@@ -4,7 +4,7 @@ Criei essa paradinha pra não precisar ficar horas configurando o ambiente do Si
 
 * Modifiquei a arquitetura pra utilizar o padrÃ£o MVC na construção de API's de maneira simples e robusta :)
 
-#Docks Stacks
+#Docker Stacks :whale:
 
 ## PHP7 on Cli
 
