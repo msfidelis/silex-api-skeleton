@@ -6,12 +6,12 @@ namespace App\Interfaces;
 * @email msfidelis01@gmail.com
 * @author Matheus Fidelis
 */
-interface CacheClientInterface {
+interface CacheClient {
   /**
   *Construct Method
   * @param [type] $server [description]
   */
-  public function __construct($server);
+  public function __construct();
 
   /**
   * Seta o Cache no servidor

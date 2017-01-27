@@ -34,6 +34,14 @@ class ApiController implements ControllerProviderInterface {
       return $app->json(['hostname' => gethostname()]);
     });
 
+    /**
+     * Exemplo de Debug
+     */
+    $api->get('/hello/{nome}', function($nome) use ($app) {
+      dump($_REQUEST, $nome); #Debug
+      die();
+      return $app->escape($nome);
+    });
 
     /**
      * Exemplo de rota via GET

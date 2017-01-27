@@ -1,2 +1,4 @@
 web/vendor/
 data/
+Logs/
+Logs/*

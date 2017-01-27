@@ -1,9 +1,18 @@
-<?php 
+<?php
 
 namespace App\Traits;
 
+/**
+ * Conjunto de funções para serem utilizadas junto ao Linux
+ */
 trait Linux {
 
+	/**
+	 * Executa um comando Linux
+	 * @author Matheus Fidelis <matheus.scarpato@superlogica.com>
+	 * @param  [type] $command [description]
+	 * @return [type]          [description]
+	 */
 	public function execute($command) {
 		if (is_null($command)) {
 			throw new Exception("Comando inválido", 1);
