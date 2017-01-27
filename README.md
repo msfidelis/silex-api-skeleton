@@ -83,10 +83,10 @@ E na pasta do projeto, onde se encontra nosso arquivinho composer.json:
 ```
 
 
-* Vai precisar ler um poquinho sobre o [Silex PHP](http://silex.sensiolabs.org/doc/master/), esse microframework PHP voltado para construÃ§Ã£o de API de forma Ã¡gil
+* Vai precisar ler um poquinho sobre o [Silex PHP](http://silex.sensiolabs.org/doc/master/), esse microframework PHP voltado para construção de API's de forma Ágil
 
-* Leia tambÃ©m sobre o [Doctrine ORM](http://docs.doctrine-project.org/en/latest/) e o [Doctrine Query Builder](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/query-builder.html). Gastei um tempinho abstraindo as coisas pra deixar um MVC mais amigÃ¡vel pra manipilaÃ§Ã£o de dados mais modular
+* Leia também sobre o [Doctrine ORM](http://docs.doctrine-project.org/en/latest/) e o [Doctrine Query Builder](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/query-builder.html). Gastei um tempinho abstraindo as coisas pra deixar um MVC mais amigÃ¡vel pra manipulação de dados mais modular
 
-* Da uma passadinha na documentaÃ§Ã£o do [Twig](http://twig.sensiolabs.org/) tambÃ©m. Esse manipulador de View Ã© dahora pra caramba de tÃ£o simples
+* Da uma passadinha na documentação do [Twig](http://twig.sensiolabs.org/) também. Esse manipulador de View da dahora pra caramba de tão simples
 
-* Lembrando que o Silex usa vÃ¡rios componentes do [Symfony Framework](https://symfony.com/) . Talvez a documentaÃ§Ã£o te ajude em algum momento.
+* Lembrando que o Silex usa vários componentes do [Symfony Framework](https://symfony.com/) . Talvez a documentação te ajude em algum momento.
