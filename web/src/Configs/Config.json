@@ -7,6 +7,12 @@
     "user": "root",
     "password" : "root"
   },
+  "memcache" : {
+    "type":"memcache",
+    "host":"memcache",
+    "port":"11211",
+    "timeout":"15000"
+  },
   "env" : {
     "debug-mode" : "true"
   }

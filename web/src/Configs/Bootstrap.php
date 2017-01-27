@@ -10,6 +10,8 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use App\Classes\Configs\Config;
 use App\System\Model;
 
+use App\Classes\Cache\MemCacheClient;
+
 Request::enableHttpMethodParameterOverride();
 
 //Seta a Static de Config
@@ -18,7 +20,9 @@ $jsonContent = file_get_contents($jsonFile);
 Config::$config = (object) json_decode($jsonContent);
 
 $app = new Application();
-$app['debug'] = True;
+
+//Define o modo de Debug
+$app['debug'] = Config::$config->env->debug;
 
 
 //Configura o Twig. Mover isso para o config.json
@@ -44,5 +48,10 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 Model::$db = $app['db'];
 Model::$query = new QueryBuilder($app['db']);
 
+//Configuração do servidor de Memcache
+MemCacheClient::$host = Config::$config->memcache->host;
+MemCacheClient::$port = Config::$config->memcache->port;
+
 require __DIR__ . "/Routes.php";
+
 return $app;
