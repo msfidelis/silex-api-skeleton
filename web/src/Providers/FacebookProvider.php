@@ -17,10 +17,10 @@ use Silex\ControllerProviderInterface;
  */
 class FacebookProvider implements ControllerProviderInterface {
 
-  private $pageID = "3376";
-  private $appID = "1706075452";
-  private $appKey = "1fe2de24eba3a944f09a9";
-  private $accessToken = "ZBbuZCtXHS7n4xZAebpyABkXuW2NUVeNfbXp9sVVMOsa9Lf5IcJZAPIS5L6RCYMhAiCVzPr1R0WaSZAMYrZAQoWvX6IB8kqyPOZBxUSvtGa4r6gf5gZDZD";
+  private $pageID = "";
+  private $appID = "";
+  private $appKey = "";
+  private $accessToken = "";
 
   public function getPageID() {
     return $this->pageID;
