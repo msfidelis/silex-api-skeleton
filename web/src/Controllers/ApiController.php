@@ -30,8 +30,18 @@ class ApiController implements ControllerProviderInterface {
       return $app->json(['status' => http_response_code()]);
     });
 
+    /**
+     * Retorna o Hostname
+     */
     $api->get('/hostname', function(Application $app) {
       return $app->json(['hostname' => gethostname()]);
+    });
+
+    /**
+     * Retorna o environment
+     */
+    $api->get('/environment', function(Application $app) {
+      return $app->json(['environment' => getenv("ENV")]);
     });
 
     /**
@@ -67,7 +77,6 @@ class ApiController implements ControllerProviderInterface {
     	$post = array(
 	        "name" => "'$data->name'",
 	        "age" => $data->age ? (int) $data->age : null,
-	        "address" => $data->address ? "'{$data->address}'" : null,
 	        "salary" => $data->salary ? (float) $data->salary : null
       );
 

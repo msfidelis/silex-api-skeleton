@@ -1,0 +1,4 @@
+name: Silex Migrations
+migrations_namespace: App\Migrations
+table_name: silex_migrations_legais
+migrations_directory: ./src/Migrations

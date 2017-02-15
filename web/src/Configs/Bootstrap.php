@@ -13,34 +13,57 @@ use App\Classes\Cache\MemCacheClient;
 
 Request::enableHttpMethodParameterOverride();
 
-//Seta a Static de Config
+/**
+* Gera o Static da Config
+* @var [type]
+*/
 $jsonFile = __DIR__ . "/Config.json";
 $jsonContent = file_get_contents($jsonFile);
 Config::$config = (object) json_decode($jsonContent);
 
+/**
+* [$app description]
+* @var Application
+*/
 $app = new Application();
 
-//Define o modo de Debug
+/**
+* Pega a varivável de ambiente que define em qual
+* environment estamos.
+* @var [type]
+*/
+$env = getenv("ENV") ? strtolower(getenv("ENV")) : "dev";
+$app['debug'] = Config::$config->db->$env->debug;
+
+/**
+* Debug Method
+*/
 $app['debug'] = Config::$config->env->debug;
 
 
-//Configura o Twig. Mover isso para o config.json
+/**
+* Configura o Twig
+*/
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
   "twig.path" => __DIR__ . "../../src/Views",
   "twig.form.templates"=>array('form_div_layout.html.twig',"form/form_div_layout.twig"),
   'twig.options' => array('cache' => '../../tmp/twig', 'strict_variables' => false)
-  )
+)
 );
 
-//Configura o Banco de Dados.
+/**
+* Setup do banco de dados. Esses parâmetros são configurados no arquivo
+* src/Configs/Config.json
+*/
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'db.options' => array(
-      'driver'    => Config::$config->db->driver,
-      'host'      => Config::$config->db->host,
-      'dbname'    => Config::$config->db->schema,
-      'user'      => Config::$config->db->user,
-      'password'  => Config::$config->db->password,
-    ),
+  'db.options' => array(
+    'driver'    => Config::$config->db->$env->driver,
+    'host'      => Config::$config->db->$env->host,
+    'port'      => Config::$config->db->$env->port,
+    'dbname'    => Config::$config->db->$env->schema,
+    'user'      => Config::$config->db->$env->user,
+    'password'  => Config::$config->db->$env->password
+  ),
 ));
 
 //Instancia um QueryBuilder genérico. Será utilizado na classe Model

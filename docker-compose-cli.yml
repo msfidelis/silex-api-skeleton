@@ -10,6 +10,8 @@ services:
       - "80:80"
     links:
       - mysql
+    environment:
+      - ENV=dev
 
   #Container de exemplo de MySQL
   mysql:

@@ -1,11 +1,50 @@
 {
   "host-api": "123123123",
   "db" : {
-    "driver":"pdo_mysql",
-    "host":"mysql",
-    "schema": "example",
-    "user": "root",
-    "password" : "root"
+       "dev" : {
+         "debug" : "true",
+         "driver": "pdo_mysql",
+         "host" : "mysql",
+         "port" : "3306",
+         "user" : "root",
+         "password" : "root",
+         "schema" : "example",
+         "charset" : "utf8",
+         "collate" : "utf8_general_ci"
+       },
+       "local" : {
+         "debug" : "true",
+         "driver": "pdo_mysql",
+         "host" : "0.0.0.0",
+         "port" : "3306",
+         "user" : "root",
+         "password" : "root",
+         "schema" : "example",
+         "charset" : "utf8",
+         "collate" : "utf8_general_ci"
+       },
+       "prod" : {
+         "debug" : "false",
+         "driver": "pdo_mysql",
+         "host" : "",
+         "port" : "3306",
+         "user" : "",
+         "password" : "",
+         "schema" : "example_prod",
+         "charset" : "utf8",
+         "collate" : "utf8_general_ci"
+       },
+       "test" : {
+         "debug" : "true",
+         "driver": "pdo_mysql",
+         "host" : "",
+         "port" : "3306",
+         "user" : "",
+         "password" : "",
+         "schema" : "example_test",
+         "charset" : "utf8",
+         "collate" : "utf8_general_ci"
+       }
   },
   "memcache" : {
     "type":"memcache",
