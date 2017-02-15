@@ -1,6 +1,5 @@
 <?php
 
-define('ROOT',dirname(__DIR__));
 require __DIR__ . "/../../vendor/autoload.php";
 
 use Silex\Application;
