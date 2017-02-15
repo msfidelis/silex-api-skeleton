@@ -13,9 +13,9 @@ class CompanyModel extends Model {
 
   /**
    * Tabela da entidade
-   * @var type 
+   * @var type
    */
-  private $table = "COMPANY2";
+  private $table = "company";
 
   /**
    * Método de insert com o Query Builder
@@ -57,7 +57,7 @@ class CompanyModel extends Model {
   }
 
   /**
-   * Exemplo de Update 
+   * Exemplo de Update
    * @param type $id
    * @param array $data
    */

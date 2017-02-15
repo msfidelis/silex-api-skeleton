@@ -82,6 +82,35 @@ E na pasta do projeto, onde se encontra nosso arquivinho composer.json:
  # composer install
 ```
 
+# Testes  
+
+Para rodar os testes, você pode utilizar o PHPunit diretamente ou aproveitar o alias do compose que eu criei
+
+```
+  composer test
+```
+
+
+# Migrations
+
+Adicionei o Doctrine Migrations pra automatizar meus deploys e testes em schemas de bancos de dados.
+
+* Gerar uma nova migration
+
+```
+  php console.php migrations:generate
+
+  # Loading configuration from file: migrations.yml
+  # Generated new migration class to "/Users/matheus/Workspace/SilexPHP-API-Skeleton/web/src/Migrations/Version20170215004833.php"
+```
+
+* Rodar as Migrations
+
+```
+  php console.php migrations:migrate
+```
+
+
 
 * Vai precisar ler um poquinho sobre o [Silex PHP](http://silex.sensiolabs.org/doc/master/), esse microframework PHP voltado para construção de API's de forma Ágil
 
