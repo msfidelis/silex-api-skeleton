@@ -3,10 +3,11 @@
     "silex/silex": "~2.0",
     "twig/twig": "1.17.*@dev",
     "doctrine/dbal": "~2.5",
-    "symfony/console": "^2.7",
+    "symfony/console": "^3.2",
     "doctrine/migrations": "^1.2.2",
     "symfony/browser-kit": "*",
-    "phpunit/phpunit": "5.5.*"
+    "phpunit/phpunit": "5.5.*",
+    "symfony/security": "^3.2"
   },
   "require-dev": {
     "symfony/var-dumper": "dev-master"

@@ -48,8 +48,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
   "twig.path" => __DIR__ . "../../src/Views",
   "twig.form.templates"=>array('form_div_layout.html.twig',"form/form_div_layout.twig"),
   'twig.options' => array('cache' => '../../tmp/twig', 'strict_variables' => false)
-)
-);
+));
 
 /**
 * Setup do banco de dados. Esses parâmetros são configurados no arquivo
@@ -65,6 +64,21 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'password'  => Config::$config->db->$env->password
   ),
 ));
+
+/**
+ * Middlewares - Auth Token
+ */
+$app->register(new App\Providers\TokenAuthProvider(), array(
+  'token.db' => $app['db']
+));
+
+/**
+* error Vai customizar a devolução de erros das Exceptions em formato JSON
+*/
+$app->error(function (\Exception $e, Request $request, $code) use ($app) {
+  $error = array("msg" => $e->getMessage(), 'status' => $code);
+  return $app->json($error, $code);
+});
 
 //Instancia um QueryBuilder genérico. Será utilizado na classe Model
 Model::$db = $app['db'];
