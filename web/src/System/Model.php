@@ -2,7 +2,7 @@
 namespace App\System;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use App\Interfaces\EntidadePadrao;
+use App\Interfaces\Entity;
 
 /**
 * Classe abstrata do Model
@@ -66,7 +66,8 @@ abstract class Model {
 	* @return type boolean
 	*/
 	protected function DBInsert($table, Array $values) {
-		return self::$db->insert($table, $values);
+		$return = self::$db->insert($table, $values);
+		return self::$db->lastInsertId();
 	}
 
 	/**
@@ -86,7 +87,7 @@ abstract class Model {
 	* @param [string]       $table  [Tabela a ser inserida]
 	* @param EntidadePadrao $entity [Objeto a ser persistido]
 	*/
-	protected function DBPersist($table, EntidadePadrao $entity) {
+	protected function DBPersist($table, Entity $entity) {
 		$values = $entity->getValues();
 		return $this->DBInsert($table, $values);
 	}

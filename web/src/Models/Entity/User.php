@@ -27,6 +27,14 @@ class User implements Entity {
      */
     private $token;
 
+    public function __construct($attrs = null) {
+        if ($attrs) {
+            foreach ($attrs as $key => $attr) {
+                $this->$key = $attr;
+            }
+        }
+    }
+
     /**
      * Undocumented function
      * 
@@ -46,7 +54,7 @@ class User implements Entity {
     }
 
     public function setPass($pass) {
-        $this->pass = $pass;
+        $this->pass = md5($pass);
         return $this;
     }
 
@@ -55,10 +63,26 @@ class User implements Entity {
     }
 
     public function setToken($token) {
-
+        $this->token = $token;
+        return $this;
     }
 
+    /**
+     * Gera um Token - Melhorar depois
+     * @return void
+     */
+    public function generateToken() {
+        $token = microtime();
+        $this->token = md5($token);
+    }
 
+    /**
+     * Transforma o Password em MD5
+     * @return void
+     */
+    public function generatePasswordHash() {
+        $this->setPass(md5($this->getPass()));
+    }
 
     /**
      * Getter dos atributos da entidade

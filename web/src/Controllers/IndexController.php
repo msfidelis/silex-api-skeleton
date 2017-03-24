@@ -40,6 +40,13 @@ class IndexController implements ControllerProviderInterface {
 		$index->get('/auth', function(Request $request) use ($app) {
 			return $app->json($app['validateToken']($request->headers->get('X-AUTH-TOKEN')));
 		});
+		
+		/**
+		*
+		*/
+		$index->post('/generate', function(Request $request) use ($app) {
+			$token = $app['generateToken']();
+		});
 
 		return $index;
 	}
