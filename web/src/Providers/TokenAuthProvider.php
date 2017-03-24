@@ -56,9 +56,6 @@ class TokenAuthProvider implements ServiceProviderInterface, BootableProviderInt
                 if (empty($result)) {
                     throw new \Exception("Token Inválido", 400); 
                 }
-
-                var_dump($result); die();
-
             }
         );
 

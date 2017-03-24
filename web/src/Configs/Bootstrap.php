@@ -76,8 +76,8 @@ $app->register(new App\Providers\TokenAuthProvider(), array(
 * error Vai customizar a devolução de erros das Exceptions em formato JSON
 */
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
-  $error = array("msg" => $e->getMessage(), 'status' => $code);
-  return $app->json($error, $code);
+  $error = array("msg" => $e->getMessage(), 'status' => $e->getCode());
+  return $app->json($error, $e->getCode());
 });
 
 //Instancia um QueryBuilder genérico. Será utilizado na classe Model

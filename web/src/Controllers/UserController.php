@@ -2,9 +2,9 @@
 namespace App\Controllers;
 
 use Silex\Application;
-use Silex\Api\ControllerProviderInterface;
 use Silex\ControllerCollection;
 use Symfony\Component\HttpFoundation\Request;
+use Silex\Api\ControllerProviderInterface;
 
 use App\Models\Entity\User;
 use App\Models\UserModel;
@@ -22,54 +22,80 @@ class UserController implements ControllerProviderInterface {
 	public function connect(Application $app) {
 		
 		/**
-		 * Middlewares do controller
+		 * Middlewares do controller - Todas as ações desse método
+     * serão aplicados em todas as requests efetuadas para o 
+     * controller
 		 */
 		$app->before(function (Request $request, Application $app) {
-			
+
 		});
-		
+    
+    /**
+     * Application Factory
+     */
 		$user = $app['controllers_factory'];
 
 		/**
 		 * POST - Create User
+     * Cria um usuário para a API
 		 */
 		$user->post('/', function(Request $request) use ($app) {
 
-            $user = new User($request->request->all());
+      $user = new User($request->request->all());
 
-            /**
-             * Generate a Unique Token for User
-             */
-            $user->generateToken();
-            $user->generatePasswordHash();
+      /**
+      * Generate a Unique Token for User
+      */
+      $user->generateToken();
+      $user->generatePasswordHash();
 
-            $userModel = new UserModel();
-            $newUser = $userModel->save($user);
-			return $app->json($newUser, 201);
+      $userModel = new UserModel();
+      $newUser = $userModel->save($user);
+
+      if ($newUser) {
+        return $app->json($newUser, 201);
+      } else {
+        return $app->json(['msg' => 'Não foi possível criar o usuário'], 400);
+      }
 		});
 
-        /**
-         * PUT - Modify User
-         */
+    /**
+     * PUT - Atualiza um usuário - Troca senha  
+     * curl -H "X-AUTH-TOKEN:ecbea4dc787bcc7b2f78cc08ed1c4255" \ 
+     * -d user="matheus" -d pass="123" -X PUT http://localhost/user/58
+     */
 		$user->put('/{id}', function(Request $request, $id) use ($app) {
 
-            $model = new UserModel();
-            $userData = $model->findrow((int) $id);
-            $user = new User($userData);
-            
-             if ($request->request->get('pass')) {
-               $user->generatePasswordHash();  
-             }
+      $model = new UserModel();
 
-             if ($model->update($id, $user->getValues())) {
-                #return $app->json($user->getValues(), 202);
-             } else {
-                #return $app->json(['msg' => 'erro ao atualizar o usuário'], 500);
-             }
+      if ($model->update((int) $id, $request->request->all())) {
+        return $app->json($model->findrow($id), 202);
+      } else {
+        return $app->json(['msg' => 'usuário não alterado'], 304);
+      }
+		})
+    /**
+     * MIDDLEWARES 
+     * Valida se o Token informado na chave X-AUTH-TOKEN existe no banco
+     */
+    ->before(function (Request $request, Application $app) {
+      $app['validateToken']($request->headers->get('X-AUTH-TOKEN'));
+    });
 
-             return $app->json($model->findrow($id));
+    /**
+     * GET - Return a User Token
+     * Implemented a HTTP Auth to return this
+     */
+    $user->get('/{id}/token', function(Request $request, $id) {
 
-		});
+    })
+    /**
+     * Middleware - Valida as credenciar informadas no Header para
+     * retornar o Token
+     */
+    ->before(function (Request $request, Application $app) {
+      $app['validateToken']($request->headers->get('X-AUTH-TOKEN'));
+    });;
 
 
 		return $user;
