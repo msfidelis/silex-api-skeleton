@@ -44,6 +44,12 @@ class User implements Entity {
         return $this->user;
     }
 
+    /**
+     * Undocumented function
+     * 
+     * @param [type] $user
+     * @return void
+     */
     public function setUser($user) {
         $this->user = $user;
         return $this;
@@ -73,7 +79,7 @@ class User implements Entity {
      */
     public function generateToken() {
         $token = microtime();
-        $this->token = md5($token);
+                $this->token = md5($token);
     }
 
     /**

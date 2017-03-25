@@ -54,7 +54,7 @@ class TokenAuthProvider implements ServiceProviderInterface, BootableProviderInt
                 $result = $app['token.db']->executeQuery($query)->fetchAll();
 
                 if (empty($result)) {
-                    throw new \Exception("Token Inválido", 400); 
+                    throw new \Exception("Token Inválido", 401); 
                 }
             }
         );
