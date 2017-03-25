@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\System\Model;
 
+use App\Models\Entity\User;
 use App\Interfaces\Entity;
 
 /**
@@ -50,7 +51,7 @@ class UserModel extends Model {
    */
   public function findrow($id) {
     $query = ($this->newQuery())
-        ->select(['id', 'user', 'token'])
+        ->select(['id', 'user', 'token', 'pass'])
         ->from($this->table)
         ->where("id = '$id'");
     $row = $this->execute($query);
@@ -90,6 +91,7 @@ class UserModel extends Model {
 
   public function save(Entity $user) {
     $newUser = $this->DBPersist($this->table, $user);
+
     if ($newUser) {
         return $this->findrow($newUser);
     }

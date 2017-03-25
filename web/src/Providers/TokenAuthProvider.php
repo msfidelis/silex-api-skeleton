@@ -22,7 +22,7 @@ class TokenAuthProvider implements ServiceProviderInterface, BootableProviderInt
     public function register (Container $app) {
 
         $app['token.db_table'] = 'users';
-        $app['token.col_user'] = 'username';
+        $app['token.col_user'] = 'user';
         $app['token.col_pass'] = 'pass';
         $app['token.col_token'] = 'token';
         $app['token.HEADER'] = 'X-AUTH-TOKEN';
@@ -34,7 +34,31 @@ class TokenAuthProvider implements ServiceProviderInterface, BootableProviderInt
          */
         $app['validateCredentials'] = $app->protect(
             function($user, $pass) use ($app) {
-                $query = "SELECT {$app['token.col_user']} AS user, {$app['token.col_pass']} AS pass FROM {$app['token.db_table']} WHERE {$app['token.col_user']} = '$user' AND {$app['token.col_pass']} = '$pass'";
+    
+                if (!$user) {
+                    throw new \Exception("Usuário não informado", 401);
+                }
+
+                if (!$pass) {
+                    throw new \Exception("Senha não informada", 401);
+                }
+
+                $pass = md5(trim($pass));
+                $query = "SELECT {$app['token.col_user']} FROM {$app['token.db_table']} WHERE {$app['token.col_user']} = '$user' AND {$app['token.col_pass']} = '$pass'";
+                
+                print_r($query); die();
+                $result = $app['token.db']->executeQuery($query);
+                print_r($result); die();
+                die();
+
+
+                print_r($result); die();
+
+
+                if (empty($result)) {
+                    throw new \Exception("Usuário inválido", 401); 
+                }
+
             });
         
         /**

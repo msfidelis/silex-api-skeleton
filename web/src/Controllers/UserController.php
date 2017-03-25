@@ -38,6 +38,9 @@ class UserController implements ControllerProviderInterface {
 		/**
 		 * POST - Create User
      * Cria um usuário para a API
+     * curl -H "Content-type: application/json" \ 
+     * -d '{"user": "usuário exemplo", "pass":"senha de exemplo"}' \
+     * -X POST http://localhost/user/
 		 */
 		$user->post('/', function(Request $request) use ($app) {
 
@@ -59,7 +62,7 @@ class UserController implements ControllerProviderInterface {
       }
 		});
 
-    /**
+    /** 
      * PUT - Atualiza um usuário - Troca senha  
      * curl -H "X-AUTH-TOKEN:ecbea4dc787bcc7b2f78cc08ed1c4255" \ 
      * -d user="matheus" -d pass="123" -X PUT http://localhost/user/58
@@ -86,7 +89,26 @@ class UserController implements ControllerProviderInterface {
      * GET - Return a User Token
      * Implemented a HTTP Auth to return this
      */
-    $user->get('/{id}/token', function(Request $request, $id) {
+    $user->get('/{id}/newtoken', function(Request $request, $id) use ($app) {
+
+      $model = new UserModel();
+
+      $userdata = $model->findrow($id);
+
+      if ($userdata) {
+        $user = new User($userdata);
+        $user->generateToken();
+
+        if ($model->update((int) $id, $user->getValues())) {
+          return $app->json(['access_token' => $user->getToken()], 200);
+        } else {
+          return $app->json(['msg' => 'Não foi possivel atualizar o usuário'], 400);
+        }
+
+      } else {
+        return $app->json(['msg' => 'usuário não encontrado'], 404);
+      }
+
 
     })
     /**
@@ -94,7 +116,7 @@ class UserController implements ControllerProviderInterface {
      * retornar o Token
      */
     ->before(function (Request $request, Application $app) {
-      $app['validateToken']($request->headers->get('X-AUTH-TOKEN'));
+      $app['validateCredentials']($request->headers->get('X-USER'), $request->headers->get('X-PASS'));
     });;
 
 

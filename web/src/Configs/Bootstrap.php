@@ -3,6 +3,7 @@
 require __DIR__ . "/../../vendor/autoload.php";
 
 use Silex\Application;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -66,14 +67,22 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 ));
 
 /**
- * Middlewares - Auth Token
+ * HTTP - Cache
+ */
+$app->register(new Silex\Provider\HttpCacheServiceProvider(), array(
+    'http_cache.cache_dir' => '../../tmp/cache/',
+    'http_cache.esi'       => null,
+));
+
+/**
+ * Provider de Tokenização
  */
 $app->register(new App\Providers\TokenAuthProvider(), array(
   'token.db' => $app['db']
 ));
 
 /**
- * Middleware = Accept Json
+ * Middleware = Content-Type: application/json
  */
 $app->before(function (Request $request) {
     if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
@@ -90,11 +99,15 @@ $app->error(function (\Exception $e, Request $request, $code) use ($app) {
   return $app->json($error, $e->getCode());
 });
 
-//Instancia um QueryBuilder genérico. Será utilizado na classe Model
+/**
+ * Instancia um QueryBuilder genérico. Será utilizado na classe Model
+ */
 Model::$db = $app['db'];
 Model::$query = new QueryBuilder($app['db']);
 
-//Configuração do servidor de Memcache
+/**
+ * Configurações do Memcache
+ */
 MemCacheClient::$host = Config::$config->memcache->host;
 MemCacheClient::$port = Config::$config->memcache->port;
 

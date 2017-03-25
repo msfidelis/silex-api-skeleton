@@ -37,7 +37,6 @@ class User implements Entity {
 
     /**
      * Undocumented function
-     * 
      * @return void
      */
     public function getUser() {
@@ -46,7 +45,6 @@ class User implements Entity {
 
     /**
      * Undocumented function
-     * 
      * @param [type] $user
      * @return void
      */
@@ -55,19 +53,37 @@ class User implements Entity {
         return $this;
     }
 
+    /**
+     * Undocumented function
+     * @return void
+     */
     public function getPass() {
         return $this->pass;
     }
 
+    /**
+     * Undocumented function
+     * @param [type] $pass
+     * @return void
+     */
     public function setPass($pass) {
         $this->pass = md5($pass);
         return $this;
     }
 
+    /**
+     * Undocumented function
+     * @return void
+     */
     public function getToken() {
         return $this->token;
     }
 
+    /**
+     * Undocumented function
+     * @param [type] $token
+     * @return void
+     */
     public function setToken($token) {
         $this->token = $token;
         return $this;
