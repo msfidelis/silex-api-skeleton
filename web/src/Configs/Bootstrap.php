@@ -95,8 +95,9 @@ $app->before(function (Request $request) {
 * error Vai customizar a devolução de erros das Exceptions em formato JSON
 */
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
-  $error = array("msg" => $e->getMessage(), 'status' => $e->getCode());
-  return $app->json($error, $e->getCode());
+  $code = ($e->getCode() > 0) ? $e->getCode() : 500;
+  $error = array("msg" => $e->getMessage(), 'status' => $code);
+  return $app->json($error, $code);
 });
 
 /**
