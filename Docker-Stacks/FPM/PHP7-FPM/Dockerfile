@@ -3,7 +3,7 @@ MAINTAINER Matheus Fidelis <msfidelis01@gmail.com>
 
 RUN echo 'deb http://httpredir.debian.org/debian jessie contrib' >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update 
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y --force-yes libssl-dev curl  libcurl4-gnutls-dev libxml2-dev libicu-dev libmcrypt-dev  libmemcached11 libmemcached-dev
 
 #CONFIGURAÇÕES DO OPCACHE

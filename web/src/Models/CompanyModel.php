@@ -23,10 +23,7 @@ class CompanyModel extends Model {
    * @return type
    */
   public function insert(array $data) {
-    $queryInsert = $this->newQuery();
-    $queryInsert->insert($this->table)
-        ->values($data);
-    return $this->execute($queryInsert);
+    return $this->DBInsert($this->table, $data);
   }
 
   /**
@@ -40,7 +37,7 @@ class CompanyModel extends Model {
       $query->select('*')
           ->from($this->table)
           ->where("id = {$id}");
-      return $this->execute($query)[0];
+      return $this->execute($query)->fetch();
     }
   }
 
@@ -53,7 +50,9 @@ class CompanyModel extends Model {
     $query = ($this->newQuery())
     ->select($fields)
         ->from($this->table);
-    return $this->execute($query);
+
+    $result = $this->execute($query);
+    return $result->fetchAll();
   }
 
   /**
@@ -65,6 +64,7 @@ class CompanyModel extends Model {
      $where = array(
        'id' => (int) $id
      );
+
      return $this->DBUpdate($this->table, $data, $where);
   }
 

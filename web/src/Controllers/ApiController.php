@@ -74,6 +74,7 @@ class ApiController implements ControllerProviderInterface {
      */
     $api->post('/add', function (Request $request) use ($app) {
     	$data = (object) $request->request->all();
+
     	$post = array(
 	        "name" => "'$data->name'",
 	        "age" => $data->age ? (int) $data->age : null,
@@ -94,7 +95,9 @@ class ApiController implements ControllerProviderInterface {
      */
     $api->put('/add/{id}', function(Request $request, $id) use ($app) {
 
-    	if ((new Company())->update((int) $id, $request->request->all())) {
+      $update = (new Company())->update((int) $id, $request->request->all());
+
+    	if ($update) {
     		$return = array('status' => 200);
     	} else {
     		$return = array('status' => 400);

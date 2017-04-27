@@ -103,11 +103,11 @@ $app->error(function (NotFoundHttpException $e, Request $request, $code) use ($a
 /**
 * @Exception Vai customizar a devolução de erros das Exceptions default em formato JSON
 */
-$app->error(function (\Exception $e, Request $request, $code) use ($app) {
-  $code = ($e->getCode() > 0) ? $e->getCode() : 500;
-  $error = array("msg" => $e->getMessage(), 'status' => $code);
-  return $app->json($error, $code);
-});
+// $app->error(function (\Exception $e, Request $request, $code) use ($app) {
+//   $code = ($e->getCode() > 0) ? $e->getCode() : 500;
+//   $error = array("msg" => $e->getMessage(), 'status' => $code);
+//   return $app->json($error, $code);
+// });
 
 
 /**
