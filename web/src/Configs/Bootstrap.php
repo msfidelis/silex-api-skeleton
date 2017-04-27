@@ -3,7 +3,7 @@
 require __DIR__ . "/../../vendor/autoload.php";
 
 use Silex\Application;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -92,13 +92,23 @@ $app->before(function (Request $request) {
 });
 
 /**
-* error Vai customizar a devolução de erros das Exceptions em formato JSON
+ * @NotFoundHttpException - Transforma os 404 em Response Json
+ */
+$app->error(function (NotFoundHttpException $e, Request $request, $code) use ($app) {
+  $code = ($e->getCode() > 0) ? $e->getCode() : 404;
+  $error = array("msg" => $e->getMessage(), 'status' => $code);
+  return $app->json($error, $code);
+});
+
+/**
+* @Exception Vai customizar a devolução de erros das Exceptions default em formato JSON
 */
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
   $code = ($e->getCode() > 0) ? $e->getCode() : 500;
   $error = array("msg" => $e->getMessage(), 'status' => $code);
   return $app->json($error, $code);
 });
+
 
 /**
  * Instancia um QueryBuilder genérico. Será utilizado na classe Model
