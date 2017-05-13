@@ -13,33 +13,33 @@ use App\Providers\Cache\Memcache\MemCacheClient;
 * @author Matheus Fidelis
 */
 class CacheProvider implements ServiceProviderInterface, BootableProviderInterface {
-  public function register (Container $app) {
-    $app['cache.host'] = 'localhost';
-    $app['cache.port'] = '11211';
-    $app['cache.type'] = 'memcache';
-    $app['cache.client'] = (
-
-    function() use ($app) {
-
-      switch ($app['cache.type']) {
-        case 'memcache':
-          $cacheServer = new \Memcache();
-          $cacheServer->addServer($app['cache.host'], $app['cache.port']);
-          $client = new MemCacheClient($cacheServer);
-        break;
-
-        default:
-        # code...
-        break;
-      }
-
-      return $client;
+    public function register (Container $app) {
+        $app['cache.host'] = 'localhost';
+        $app['cache.port'] = '11211';
+        $app['cache.type'] = 'memcache';
+        $app['cache.client'] = (
+        
+        function() use ($app) {
+            
+            switch ($app['cache.type']) {
+                case 'memcache':
+                    $cacheServer = new \Memcache();
+                    $cacheServer->addServer($app['cache.host'], $app['cache.port']);
+                    $client = new MemCacheClient($cacheServer);
+                    break;
+                
+                default:
+                    # code...
+                    break;
+        }
+        
+        return $client;
     }
-
-  );
+    
+    );
 }
 
 public function boot(Application $app) {
-
+    
 }
 }

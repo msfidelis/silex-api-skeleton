@@ -34,6 +34,7 @@ abstract class Model {
     */
     protected function execute($query, $toArray = True) {
         $return = self::$db->executeQuery($query);
+
         if ($toArray) {
             return $return;
         } else {

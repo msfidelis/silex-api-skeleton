@@ -1,20 +1,21 @@
 <?php
-/**
-* Pega a variável de ambiente do projeto
-* @var [type]
+
+/*
+|--------------------------------------------------------------------------
+| Migrations Configs
+|--------------------------------------------------------------------------
+|
+| Parse a JSON file for Migration Database by Environment
+|
 */
 $env = getenv("ENV") ? strtolower(getenv("ENV")) : "local";
-/**
-* Pega do arquivo de configuração um objeto com as configurações
-* da database correta para o ambiente que está sendo executado
-* @var [type]
-*/
-$jsonFile = __DIR__ . "/src/Configs/Config.json";
+
+$jsonFile = __DIR__ . "/Configs/Config.json";
 $config = (object) json_decode(file_get_contents($jsonFile));
 $db = $config->db->$env;
 
 /**
- * Options das Migrations
+ * Migrations Configis
  */
 return array(
         'host'      => $db->host,

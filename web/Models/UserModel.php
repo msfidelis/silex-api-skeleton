@@ -54,10 +54,11 @@ class UserModel extends Model {
         ->select(['id', 'user', 'token', 'pass'])
         ->from($this->table)
         ->where("id = '$id'");
+        
     $row = $this->execute($query);
 
     if ($row) {
-        return $this->execute($query)[0];
+        return $this->execute($query);
     } else {
         return false;
     }
