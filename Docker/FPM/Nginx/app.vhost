@@ -1,6 +1,6 @@
 server {
     server_name localhost;
-    root /var/www/html;
+    root /var/www/html/Public;
 
     location = / {
         try_files @site @site;
