@@ -12,14 +12,16 @@ use App\Models\UserModel;
 /**
 * Controller de usuário - Exemplo de autenticação
 */
-class UserController implements ControllerProviderInterface {
+class UserController implements ControllerProviderInterface 
+{
     
     /**
     * Connect Method
     * @param Application $app
     * @return Application
     */
-    public function connect(Application $app) {
+    public function connect(Application $app) 
+    {
         
         /**
         * Middlewares do controller - Todas as ações desse método

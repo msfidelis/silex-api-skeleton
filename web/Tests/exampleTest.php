@@ -1,43 +1,44 @@
 <?php
 
 namespace App\Tests;
-use Silex\WebTestCase;
+use App\Tests\TestCase;
 
 /**
 * Um simples esquema de como rodar testes no Silex PHP
 * Mais precisamente esse mini framework :)
 */
-class exampleTest extends WebTestCase {
+class exampleTest extends TestCase 
+{
     
     /**
-    * SetUp Method
-    */
-    public function setUp() {
-        parent::setUp();
-    }
-    
-    /**
-    * Garante nossa instância de do Application
-    * @return [type] [description]
-    */
-    public function createApplication() {
-        $app = require __DIR__ . '/../Configs/Bootstrap.php';
-        return $app;
-    }
-    
-    /**
-    * Verifica se retorna um Json legalzão
-    * @return [type] [description]
-    */
-    public function testHostname() {
+     * Test Hostname
+     * @return void
+     */
+    public function testHostname() 
+    {
         $client = $this->createClient();
-        $client->request('GET', '/api/hostname');
+        $client->request('GET', '/v1/server/hostname');
         
         $response = json_decode($client->getResponse()->getContent());
         
         $this->assertTrue(isset($response->hostname));
-        
         $this->assertEquals(200, $client->getInternalResponse()->getStatus());
+        $this->assertEquals('application/json', $client->getInternalResponse()->getHeaders()['content-type'][0]);
+    }
+
+    /**
+     * Test PHP Version
+     * @return void
+     */
+    public function testPHPVersion() 
+    {
+        $client = $this->createClient();
+        $client->request("GET", "/v1/server/phpversion");
+        
+        $response = json_decode($client->getResponse()->getContent());
+
+        $this->assertTrue(isset($response->phpversion));
+        $this->assertEquals(phpversion(), $response->phpversion);
         $this->assertEquals('application/json', $client->getInternalResponse()->getHeaders()['content-type'][0]);
     }
 }

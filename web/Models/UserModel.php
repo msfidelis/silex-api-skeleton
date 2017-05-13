@@ -12,7 +12,8 @@ use App\Interfaces\Entity;
  * @email msfidelis01@gmail.com
  * @author Matheus Fidelis
  */
-class UserModel extends Model {
+class UserModel extends Model 
+{
 
   /**
    * Tabela da entidade
@@ -25,7 +26,8 @@ class UserModel extends Model {
    * @param array $data
    * @return type
    */
-  public function insert(array $data) {
+  public function insert(array $data) 
+  {
     $queryInsert = $this->newQuery();
     $queryInsert->insert($this->table)
         ->values($data);
@@ -37,7 +39,8 @@ class UserModel extends Model {
    * @param type $fields
    * @return type
    */
-  public function findAll($fields = array("*")) {
+  public function findAll($fields = array("*")) 
+  {
     $query = ($this->newQuery())
         ->select($fields)
         ->from($this->table);
@@ -49,7 +52,8 @@ class UserModel extends Model {
    * @param [type] $id
    * @return void
    */
-  public function findrow($id) {
+  public function findrow($id) 
+  {
     $query = ($this->newQuery())
         ->select(['id', 'user', 'token', 'pass'])
         ->from($this->table)
@@ -69,7 +73,8 @@ class UserModel extends Model {
    * @param type $id
    * @param array $data
    */
-  public function update($id, array $data) {
+  public function update($id, array $data) 
+  {
      $where = array(
        'id' => (int) $id
      );
@@ -81,7 +86,8 @@ class UserModel extends Model {
    * @param type $id
    * @return type
    */
-  public function delete($id) {
+  public function delete($id) 
+  {
     if (is_int($id)) {
       $query = $this->newQuery();
       $query->delete($this->table)
@@ -90,7 +96,8 @@ class UserModel extends Model {
     }
   }
 
-  public function save(Entity $user) {
+  public function save(Entity $user) 
+  {
     $newUser = $this->DBPersist($this->table, $user);
 
     if ($newUser) {

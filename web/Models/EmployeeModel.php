@@ -9,21 +9,26 @@ use App\System\Model;
  * @email msfidelis01@gmail.com
  * @author Matheus Fidelis
  */
-class CompanyModel extends Model {
+class EmployeeModel extends Model 
+{
 
   /**
    * Tabela da entidade
    * @var type
    */
-  private $table = "company";
+  private $table = "employee";
 
   /**
    * Método de insert com o Query Builder
    * @param array $data
    * @return type
    */
-  public function insert(array $data) {
-    return $this->DBInsert($this->table, $data);
+  public function insert(array $data) 
+  {
+    $newEmployee = $this->DBInsert($this->table, $data);
+     if ($newEmployee) {
+       return $this->findEmployeeByID($newEmployee);
+     }
   }
 
   /**
@@ -31,7 +36,8 @@ class CompanyModel extends Model {
    * @param type $id
    * @return type
    */
-  public function findEmployeeByID($id) {
+  public function findEmployeeByID($id) 
+  {
     if ($id) {
       $query = $this->newQuery();
       $query->select('*')
@@ -46,7 +52,8 @@ class CompanyModel extends Model {
    * @param type $fields
    * @return type
    */
-  public function findAll($fields = array("*")) {
+  public function findAll($fields = array("*")) 
+  {
     $query = ($this->newQuery())
     ->select($fields)
         ->from($this->table);
@@ -60,12 +67,19 @@ class CompanyModel extends Model {
    * @param type $id
    * @param array $data
    */
-  public function update($id, array $data) {
+  public function update($id, array $data) 
+  {
      $where = array(
        'id' => (int) $id
      );
+     $update = $this->DBUpdate($this->table, $data, $where);
 
-     return $this->DBUpdate($this->table, $data, $where);
+     if ($update) {
+       return $this->findEmployeeByID($id);
+     } else {
+       return false;
+     }
+    
   }
 
   /**
@@ -73,7 +87,8 @@ class CompanyModel extends Model {
    * @param type $id
    * @return type
    */
-  public function delete($id) {
+  public function delete($id) 
+  {
     if (is_int($id)) {
       $query = $this->newQuery();
       $query->delete($this->table)

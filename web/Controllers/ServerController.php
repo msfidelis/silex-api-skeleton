@@ -10,14 +10,16 @@ use Symfony\Component\HttpFoundation\Response;
 * @email msfidelis01@gmail.com
 * @author Matheus Fidelis
 */
-class serverController implements ControllerProviderInterface {
+class serverController implements ControllerProviderInterface 
+{
     
     /**
     * Connect Method
     * @param Application $app
     * @return Application
     */
-    public function connect(Application $app) {
+    public function connect(Application $app) 
+    {
         
         $server = $app['controllers_factory'];
         
@@ -25,7 +27,7 @@ class serverController implements ControllerProviderInterface {
          * Server - PHP Version
          */
         $server->get('/phpversion', function() use ($app) {
-            return $app->json(['php-version' => phpversion()]);
+            return $app->json(['phpversion' => phpversion()]);
         });
         
         /**

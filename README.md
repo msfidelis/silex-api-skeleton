@@ -119,3 +119,117 @@ Adicionei o Doctrine Migrations pra automatizar meus deploys e testes em schemas
 * Da uma passadinha na documentação do [Twig](http://twig.sensiolabs.org/) também. Esse manipulador de View da dahora pra caramba de tão simples
 
 * Lembrando que o Silex usa vários componentes do [Symfony Framework](https://symfony.com/) . Talvez a documentação te ajude em algum momento.
+
+# CRUD Teste 
+
+* Migrations 
+
+Será necessário rodar as migrations já existentes
+
+```
+$ php console.php migrations:migrate
+```
+
+### POST - Create Employee
+
+```bash
+$ curl -H "Content-type: application/json" \
+    -d '{"name": "Matheus Fidelis", "age":"21", "salary":200}' \
+    -X POST localhost/employee/ -i 
+```
+
+```
+HTTP/1.1 201 Created
+Server: nginx/1.6.2
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Powered-By: PHP/7.0.17
+Cache-Control: no-cache, private
+Date: Sat, 13 May 2017 12:03:53 GMT
+X-Symfony-Cache: POST /employee/: pass, invalidate
+
+{"id":"25","name":"\u0027Matheus Fidelis\u0027","age":"21","salary":"200"}
+```
+
+### GET - List all Employees
+
+```bash
+$ curl -H "Content-type: application/json" \
+    -X GET localhost/employee/ -i 
+```
+
+```
+HTTP/1.1 200 OK
+Server: nginx/1.6.2
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Powered-By: PHP/7.0.17
+Cache-Control: no-cache, private
+Date: Sat, 13 May 2017 12:06:59 GMT
+X-Symfony-Cache: GET /employee/: miss
+
+[{"id":"1","name":"\u0027Matheus Fidelis\u0027","age":"21","salary":"200"},{"id":"2","name":"\u0027Matheus Fidelis\u0027","age":"21","salary":"200"},{"id":"3","name":"\u0027Matheus Fidelis\u0027","age":"21","salary":"200"}]
+```
+
+### GET - List a single Employee
+
+```bash
+$ curl -H "Content-type: application/json" \
+    -X GET localhost/employee/1 -i 
+```
+
+```yml
+HTTP/1.1 200 OK
+Server: nginx/1.6.2
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Powered-By: PHP/7.0.17
+Cache-Control: no-cache, private
+Date: Sat, 13 May 2017 12:07:24 GMT
+X-Symfony-Cache: GET /employee/1: miss
+
+{"id":"1","name":"\u0027Matheus Fidelis\u0027","age":"21","salary":"200"}
+```
+
+### PUT - Update a employee
+
+```bash
+$ curl -H "Content-type: application/json" \
+    -d '{"name": "Matheus Fidelis - Changed!", "age":"21", "salary":200}' \
+    -X PUT localhost/employee/1 -i 
+```
+
+```yml
+HTTP/1.1 200 OK
+Server: nginx/1.6.2
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Powered-By: PHP/7.0.17
+Cache-Control: no-cache, private
+Date: Sat, 13 May 2017 12:11:53 GMT
+X-Symfony-Cache: PUT /employee/1: pass, invalidate
+
+{"id":"1","name":"Matheus Fidelis - Changed!!!","age":"21","salary":"200"}
+```
+
+### DELETE - Delete a Employee
+
+```bash
+$ curl -H "Content-type: application/json" \
+    -X DELETE localhost/employee/1 -i 
+```
+
+```yml
+HTTP/1.1 204 No Content
+Server: nginx/1.6.2
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+X-Powered-By: PHP/7.0.17
+Cache-Control: no-cache, private
+Date: Sat, 13 May 2017 12:15:04 GMT
+X-Symfony-Cache: DELETE /employee/1: pass, invalidate
+```

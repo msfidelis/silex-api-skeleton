@@ -10,14 +10,16 @@ use Symfony\Component\HttpFoundation\Response;
 /**
 * Exemplo de Controller
 */
-class IndexController implements ControllerProviderInterface {
+class IndexController implements ControllerProviderInterface 
+{
     
     /**
     * Connect Method
     * @param Application $app
     * @return Application
     */
-    public function connect(Application $app) {
+    public function connect(Application $app) 
+    {
         
         /**
         * Middlewares do controller
@@ -28,11 +30,13 @@ class IndexController implements ControllerProviderInterface {
         
         $index = $app['controllers_factory'];
         
-        /**
-        * Index Route
-        */
         $index->get('/', function() use ($app) {
             return $app->json(['say' => 'hello']);
+        });
+        
+        
+        $index->get('/hello/{name}', function($name) use ($app) {
+            return $app->json(["Say my name" => $name]);
         });
         
         return $index;

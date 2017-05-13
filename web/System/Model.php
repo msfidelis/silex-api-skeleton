@@ -13,7 +13,8 @@ use App\Interfaces\Entity;
 * @email msfidelis01@gmail.com
 * @author Matheus Fidelis
 */
-abstract class Model {
+abstract class Model 
+{
     /**
     * Uma instância genérica do Query Builder
     * @var type object Query Builder
@@ -32,7 +33,8 @@ abstract class Model {
     * @param type $toArray define se o retorno será um Array ou um Objeto
     * @return type
     */
-    protected function execute($query, $toArray = True) {
+    protected function execute($query, $toArray = True) 
+    {
         $return = self::$db->executeQuery($query);
 
         if ($toArray) {
@@ -46,7 +48,8 @@ abstract class Model {
     * Sempre retorna uma nova instância do Query Builder
     * @return QueryBuilder
     */
-    protected function newQuery() {
+    protected function newQuery() 
+    {
         return new QueryBuilder(self::$db);
     }
     
@@ -56,7 +59,8 @@ abstract class Model {
     * @param array $where contêm os parâmetros do where
     * @return type boolean
     */
-    protected function DBDelete($table, Array $where) {
+    protected function DBDelete($table, Array $where) 
+    {
         return self::$db->delete($table, $where);
     }
     
@@ -66,7 +70,8 @@ abstract class Model {
     * @param array $values array contendo o conteúdo a ser inserido
     * @return type boolean
     */
-    protected function DBInsert($table, Array $values) {
+    protected function DBInsert($table, Array $values) 
+    {
         $return = self::$db->insert($table, $values);
         return self::$db->lastInsertId();
     }
@@ -78,7 +83,8 @@ abstract class Model {
     * @param array $where array com as clausulas do Where
     * @return type boolean
     */
-    protected function DBUpdate ($table, Array $values, Array $where ) {
+    protected function DBUpdate ($table, Array $values, Array $where ) 
+    {
         return self::$db->update($table, $values, $where);
     }
     
@@ -88,7 +94,8 @@ abstract class Model {
     * @param [string]       $table  [Tabela a ser inserida]
     * @param EntidadePadrao $entity [Objeto a ser persistido]
     */
-    protected function DBPersist($table, Entity $entity) {
+    protected function DBPersist($table, Entity $entity) 
+    {
         $values = $entity->getValues();
         return $this->DBInsert($table, $values);
     }

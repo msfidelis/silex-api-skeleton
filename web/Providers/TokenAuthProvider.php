@@ -46,14 +46,7 @@ class TokenAuthProvider implements ServiceProviderInterface, BootableProviderInt
             $pass = md5(trim($pass));
             $query = "SELECT {$app['token.col_user']} FROM {$app['token.db_table']} WHERE {$app['token.col_user']} = '$user' AND {$app['token.col_pass']} = '$pass'";
             
-            print_r($query); die();
             $result = $app['token.db']->executeQuery($query);
-            print_r($result); die();
-            die();
-            
-            
-            print_r($result); die();
-            
             
             if (empty($result)) {
                 throw new \Exception("Usuário inválido", 401);
