@@ -58,7 +58,7 @@ class UserModel extends Model {
     $row = $this->execute($query);
 
     if ($row) {
-        return $this->execute($query);
+        return $this->execute($query)->fetchAll()[0];
     } else {
         return false;
     }

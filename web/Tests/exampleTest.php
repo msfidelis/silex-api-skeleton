@@ -3,15 +3,11 @@
 namespace App\Tests;
 use Silex\WebTestCase;
 
-use App\Models\Entity\Cavaleiro;
-use App\Classes\CavaleirosDoZodiaco\Combate;
-
-
 /**
 * Um simples esquema de como rodar testes no Silex PHP
 * Mais precisamente esse mini framework :)
 */
-class apiTest extends WebTestCase {
+class exampleTest extends WebTestCase {
     
     /**
     * SetUp Method

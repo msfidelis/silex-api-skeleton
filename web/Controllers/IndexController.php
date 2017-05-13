@@ -32,21 +32,7 @@ class IndexController implements ControllerProviderInterface {
         * Index Route
         */
         $index->get('/', function() use ($app) {
-            return $app->json('hello');
-        });
-        
-        $index->get('/server', function() use ($app) {
-            return $app->json(['php-version' => phpversion()]);
-        });
-        
-        $index->get('/hostname', function() use ($app) {
-            return new Response();
-        });
-        
-        $index->get('/phpinfo', function() use ($app) {
-            return new Response(phpinfo(), 200, array(
-            'Cache-Control' => 's-maxage=510',
-            ));
+            return $app->json(['say' => 'hello']);
         });
         
         return $index;
