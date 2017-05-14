@@ -1,22 +1,20 @@
 version: '2'
 services:
   fpm:
-    build: Docker-Stacks/FPM/PHP7-FPM
+    build: Docker/FPM/PHP7-FPM
     volumes:
       - ./web:/var/www/html
-      #DESCOMENTAR CASO QUEIRA CUSTOMIZAR O OPCACHE DO PHP
-      #- Docker-Stacks/FPM/PHP7-FPM/opcache.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
     ports:
       - "9000"
     links:
       - mysql
 
   web:
-    build: Docker-Stacks/FPM/Nginx
+    build: Docker/FPM/Nginx
     volumes:
-      - ./Docker-Stacks/FPM/Nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./Docker-Stacks/FPM/Nginx/app.vhost:/etc/nginx/conf.d/app.vhost
-      - ./Logs/Nginx:/var/log/nginx
+      - ./Docker/FPM/Nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./Docker/FPM/Nginx/app.vhost:/etc/nginx/conf.d/app.vhost
+      - ./Docker/Logs/Nginx:/var/log/nginx
     ports:
       - "80:80"
       - "443:443"
@@ -31,4 +29,4 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=example
     volumes:
-    -   ./data/db:/var/lib/mysql
+    -   ./Docker/data/db:/var/lib/mysql
