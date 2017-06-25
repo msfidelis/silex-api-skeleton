@@ -15,6 +15,14 @@ use App\Classes\Cache\MemCacheClient;
 
 Request::enableHttpMethodParameterOverride();
 
+
+/*
+|--------------------------------------------------------------------------
+| Optional Trailing Slashes
+|--------------------------------------------------------------------------
+*/
+$_SERVER['REQUEST_URI'] = rtrim($_SERVER['REQUEST_URI'], '/') . '/';
+
 /*
 |--------------------------------------------------------------------------
 | Load a Static Config Class
