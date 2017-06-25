@@ -4,8 +4,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Silex\Application;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\DBAL\Query\QueryBuilder;
 use App\Classes\Configs\Config;
 use App\System\Model;
@@ -101,6 +102,18 @@ $app->before(function (Request $request) {
         $data = json_decode($request->getContent(), true);
         $request->request->replace(is_array($data) ? $data : array());
     }
+});
+
+/*
+|--------------------------------------------------------------------------
+| Middleware - Pretty printing all JSON output in Silex PHP
+|--------------------------------------------------------------------------
+*/
+$app->after(function(Request $request, Response $response) {
+    if($response instanceof JsonResponse) {
+        $response->setEncodingOptions(JSON_PRETTY_PRINT);
+    }
+    return $response;
 });
 
 /*
