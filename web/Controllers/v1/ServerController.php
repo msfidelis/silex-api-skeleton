@@ -1,5 +1,7 @@
 <?php
-namespace App\Controllers;
+
+namespace App\Controllers\v1;
+
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
