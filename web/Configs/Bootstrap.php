@@ -21,7 +21,7 @@ Request::enableHttpMethodParameterOverride();
 | Optional Trailing Slashes
 |--------------------------------------------------------------------------
 */
-$_SERVER['REQUEST_URI'] = rtrim($_SERVER['REQUEST_URI'], '/') . '/';
+$_SERVER['REQUEST_URI'] = rtrim($_SERVER['REQUEST_URI'], '/');
 
 /*
 |--------------------------------------------------------------------------
